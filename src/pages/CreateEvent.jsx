@@ -1,5 +1,6 @@
 import react, { useState } from "react";
-import { getEvents } from "../services/eventService";
+import { createEvent} from "../services/eventService";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateEvent({onCreate}){
     const [form,setForm]=useState({
@@ -9,7 +10,7 @@ export default function CreateEvent({onCreate}){
         description: '',
         //  organizer: '000000000000000000000000'
     });
-    
+    const navigate = useNavigate();
     function handleChange(e) {
         setForm({
             ...form,
@@ -23,28 +24,37 @@ export default function CreateEvent({onCreate}){
             alert('Title and date are required!');
             return;
         }
-        const { title, date, location, description } = form;
+        // const { title, date, location, description } = form;
 
        
         try{ 
-            const response= await fetch('http://localhost:3001/api/events',{
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title, date, location, description })
+            const eventData ={
+
+                
+
+                ...form,
+                date: new Date(form.date).toISOString(),
+                organizer: "680a7bce593004e67cddb12f"
+                };
+            const created = await createEvent(eventData);
+            // const response= await fetch('http://localhost:3001/api/events',{
+            // method: "POST",
+            // headers: {'Content-Type': 'application/json'},
+            // body: JSON.stringify({ title, date, location, description })
             // body:JSON.stringify({...form,
             //     organizer: User._id
       
-            
+             if (onCreate) onCreate(created)
 
-        });
-        const data =await response.json();
+       
+//         const data =await response.json();
       
-        console.log("Event Created",data);
-  
+//         console.log("Event Created",data);
+
   
 
       
-onCreate(form);
+// onCreate(form);
 
 //Reset form after submit
 setForm({
@@ -54,63 +64,81 @@ setForm({
     description: ''
 });
 
-
+navigate('/events');
 }catch(error) {
-    console.error(error)
+    console.log('Server error:', error.response.data);
 }
     }
        
 return (
-    <form onSubmit={handleSubmit}>
-<h2>Create Event</h2>
-        <div>
-<label>Title:</label>
-<input
-type="text"
-name="title"
-value={form.title}
-onChange={handleChange}
-required/>
+    <form onSubmit={handleSubmit} style={{ maxWidth: 400, 
+    margin: "3 rem auto",
+     background: "#fff",
+      padding: "2rem",
+       borderRadius: "8px",boxShadow:"0 2px 8px rgba(0,0,0,0.07)" }}>
+<h2 style={{textAlign: "center"}}> Create Event</h2>
+<div style={{marginBottom: "1rem"}}>
+    <label>Title</label>
 
+    <input 
+    type="text"
+    name="title"
+    value={form.title}
+    onChange={handleChange}
+    required
+    style={{width: "100%"}} />
+    </div>
 
-        </div>
-
-        <div>
+<div style={{marginBottom: "1rem"}}>
     <label>Date:</label>
-    <input
-type="date"
-name="date"
-value={form.date}
-onChange={handleChange}
-required/>
+
+    <input 
+    type="date"
+    name="date"
+    value={form.date}
+    onChange={handleChange}
+    required
+    style={{width: "100%"}} />
 
 </div>
 
-<div>
+<div style={{marginBottom: "1rem"}}>
     <label>Location:</label>
-    <input
-type="text"
-name="location"
-value={form.location}
-onChange={handleChange}
-/>
+
+    <input 
+    type="text"
+    name="location"
+    value={form.location}
+    onChange={handleChange}
+    required
+    style={{width: "100%"}} />
 
 </div>
-
-<div>
+<div style={{marginBottom: "1rem"}}>
     <label>Description:</label>
-    <textarea
-name="description"
-value={form.description}
-onChange={handleChange}
-/>
 
+    <textarea 
+    name="description"
+    value={form.description}
+    onChange={handleChange}
+    required
+    style={{width: "100%",
+        minHeight: "80px",
+     padding: "0.5rem",
+     borderRadius: "4px",border:"1px solid #ccc",
+     resize:"vertical"}} />
+    
 </div>
-<button type="submit">Create Event</button>
-</form>
 
-);
-};
-// export default createEventForm;
-
-
+<button 
+type="submit" style={{
+     width: "100%", 
+     padding: "0.5rem",
+      borderRadius: "4px",
+       background: "#2575fc", 
+       color: "#fff", border: "none" 
+       }}> Create Event
+            </button>
+        </form>
+    );
+}

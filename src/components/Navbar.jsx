@@ -20,13 +20,14 @@ export function AppNavbar() {
   };
   return (
     <Navbar expand="lg" bg="light" fixed="top" className="px-3">
-      <Container fluid>
-        <Navbar.Brand href="/">
+      <Container>
+        <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
           <img
             src="https://i0.wp.com/picjumbo.com/wp-content/uploads/inflatable-balloons-happy-new-year-2025-free-image.jpeg?w=1500&quality=50"
             width="40"
-            className="d-inline-block align-top"
+            className="d-inline-block align-text-top"
             alt="Event planner logo"
+            style={{marginRight: '8px'}}
           />
           Smart Event
         </Navbar.Brand>
@@ -34,7 +35,8 @@ export function AppNavbar() {
         <Navbar.Collapse id="navbarScroll">
           {/* Page links */}
           <Nav className="me-auto-my-2 my-lg-0" navbarScroll>
-          <NavLink to="/" style={{ marginRight: "1rem" }}>Home</NavLink>
+          <Nav.Link as={NavLink} to="/" end>Home</Nav.Link>
+          {/* <NavLink to="/" style={{ marginRight: "1rem" }}>Home</NavLink> */}
             {/* <Nav.Link as={Link} to="/">
               Home
             </Nav.Link> */}
@@ -42,19 +44,12 @@ export function AppNavbar() {
               Events
             </Nav.Link> */}
             {/* //New page */}
-            <NavLink to="/events" style={{ marginRight: "1rem" }}>
-        Events
-      </NavLink>
+            <Nav.Link as={NavLink} to="/events">Events</Nav.Link>
 
-            <Nav.Link as={Link} to="/create">
-              Create Event
-            </Nav.Link>
-            <Nav.Link as={Link} to="/myrsvps">
-              My RSVPs
-            </Nav.Link>
-            <Nav.Link as={Link} to="/about">
-              About
-            </Nav.Link>
+            <Nav.Link as={NavLink} to="/create">Create Event</Nav.Link>
+
+            <Nav.Link as={NavLink} to="/myrsvps">My RSVPs</Nav.Link>
+            <Nav.Link as={NavLink} to="/about">About</Nav.Link>
           </Nav>
 
           <Form className="d-flex me-3">

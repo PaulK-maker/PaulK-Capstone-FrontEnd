@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 //import service function to fetch event data
 import { getEventById } from '../services/eventService';
 
+import EventCard from '../components/EventCard';
+
 function EventDetails() {
 
     //get id parameter from the url
@@ -53,8 +55,8 @@ function EventDetails() {
         <div>
             <h2>{event.title}</h2>
             <p>{event.description}</p>
-            <p><strong>Date:</strong> {event.date}</p>
-            <p><strong>Time:</strong> {event.time}</p>
+            <p><strong>Date:</strong> {dateStr}</p>
+            <p><strong>Time:</strong> {timeStr}</p>
             <p><strong>Location:</strong> {event.location}</p>
         </div>
     );

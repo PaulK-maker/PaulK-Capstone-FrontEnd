@@ -63,7 +63,7 @@ const submitEdit = async (e)=>{
 
 
   return (
-    <div>
+    <div className="event-list-container">
       <h2>Welcome to View the Events!</h2>
       <h3>Upcoming Events:</h3>
       {Array.isArray(events) && events.length === 0 ? (
@@ -109,5 +109,5 @@ const submitEdit = async (e)=>{
   );
 };
 
-            
+
 export default HomePage;
