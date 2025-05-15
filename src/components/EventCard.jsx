@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 // import EventCard from "../components/EventCard";
-//  import 'App.css';
+ import './App.css';
 
 
 export default function EventCard({event, onDelete, onRsvp}) {

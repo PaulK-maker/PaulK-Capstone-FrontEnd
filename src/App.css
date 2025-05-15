@@ -11,17 +11,42 @@
   padding-top: 70px;
 }
 
-
-
-
-
-
-#root {
+.welcome-section {
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+:root {
+  --primary-color: #2575fc;
+  --secondary-color: #6a11cb;
+  --light-bg: #ffffff;
+  --light-grey: #f6f8fa;
+  --accent: #e8dada;
+  --text-dark: #333;
+}
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
 }
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
 
 .logo {
   height: 6em;
@@ -35,26 +60,36 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.btn-secondary {
+  background-color: var(--accent);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.card {
-  padding: 2em;
+/* Card Style */
+.event-card {
+  background: var(--light-grey);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
-.read-the-docs {
-  color: #888;
+.details-button {
+  color: var(--primary-color);
+  font-weight: bold;
+  text-decoration: none;
 }

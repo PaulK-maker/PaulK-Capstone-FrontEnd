@@ -20,6 +20,8 @@ import Login from './pages/Login';
 import Register from './pages/Register'; 
 import About from './pages/About';
 import EventPage from './pages/EventPage'; 
+import LandingPage from './pages/LandingPage';
+import Footer from './components/Footer';
 
 import { getUserRsvps } from "./services/eventService";
 
@@ -60,7 +62,11 @@ return (
            <Route path="/register" element={<Register />} />
 
            {/* <Route path="/event/:id/edit" element={<UpdateEvent />} /> */}
-           <Route path="/" element={<Navigate to="/events" />} />
+           {/* <Route path="/" element={<Navigate to="/events" />} /> */}
+
+           <Route path="/events" element={<HomePage />} />
+
+           <Route path="/" element={<LandingPage />} />
            
 
            {/* <Route path="/events/:id" element={<EventPage />} /> */}

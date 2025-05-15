@@ -1,5 +1,6 @@
 // Nav Bar
 import { Link, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -33,12 +34,18 @@ export function AppNavbar() {
         <Navbar.Collapse id="navbarScroll">
           {/* Page links */}
           <Nav className="me-auto-my-2 my-lg-0" navbarScroll>
-            <Nav.Link as={Link} to="/">
+          <NavLink to="/" style={{ marginRight: "1rem" }}>Home</NavLink>
+            {/* <Nav.Link as={Link} to="/">
               Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/events">
+            </Nav.Link> */}
+            {/* <Nav.Link as={Link} to="/events">
               Events
-            </Nav.Link>
+            </Nav.Link> */}
+            {/* //New page */}
+            <NavLink to="/events" style={{ marginRight: "1rem" }}>
+        Events
+      </NavLink>
+
             <Nav.Link as={Link} to="/create">
               Create Event
             </Nav.Link>
