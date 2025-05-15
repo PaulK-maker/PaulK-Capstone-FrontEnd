@@ -63,7 +63,7 @@ return (
            <Route path="/" element={<Navigate to="/events" />} />
            
 
-           <Route path="/events/:id" element={<EventPage />} />
+           {/* <Route path="/events/:id" element={<EventPage />} /> */}
         </Routes>
       </main>
     </BrowserRouter>

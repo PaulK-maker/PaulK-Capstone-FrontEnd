@@ -7,6 +7,7 @@ function MyRsvps () {
     const [events, setEvents] =useState([]);
     // const handleRsvp = async (eventId)=>
         useEffect(()=>{
+            // getUserRsvps()
             async function fetchEvents(){
         try{
            const response= await axios.get('http://localhost:3001/api/events');

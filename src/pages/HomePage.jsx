@@ -39,18 +39,24 @@ const handleEditChange = (e) => {
   setForm({ ...form, [e.target.name]: e.target.value });
 };
 
-const submitEdit =(e) =>{
+const submitEdit = async (e)=>{
   e.preventDefault();
 
-  updateEvent(editingId, form)
-  .then(() => {
+  try{
+
+  await updateEvent(editingId, form);
+  // .then(() => {
     setEditingId(null);
-    return getEvents();
-  })
-  .then(response => setEvents(response.data))
-  .catch(error => {
+
+    const response = await axios.get('http://localhost:3001/api/events');
+    // return getEvents();
+
+  // })
+  setEvents(response.data);
+  }catch(error) {
     console.error('Error updating event:', error);
-  });
+    alert('Failed to update event.');
+  }
 };
   
 

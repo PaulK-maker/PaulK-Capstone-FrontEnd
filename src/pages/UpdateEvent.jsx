@@ -12,7 +12,7 @@ export default function EditEventById() {
   const nav = useNavigate()
 
   useEffect(() => {
-    updateEvent(id).then(res => setEvent(res.data));
+    getEventById(id).then(res => setEvent(res.data));
   
   },[id]);
   
@@ -23,7 +23,7 @@ export default function EditEventById() {
       location: e.target.location.value,
       date: e.target.date.value,
      };
-      editEvent(id,updatedEvent).then(() =>{nav(`/event${id}`)})
+     updateEvent(id,updatedEvent).then(() =>{nav(`/events${id}`)})
 
   }
   return (

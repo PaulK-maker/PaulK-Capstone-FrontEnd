@@ -16,10 +16,12 @@ export default function EventCard({event, onDelete, onRsvp}) {
  {/* get date and able to use given date */}
      <p><strong>Date:</strong>{new Date(date).toLocaleDateString()}</p>
      <p><strong>Location:</strong>{location}</p>
-     <p><strong>Description</strong></p>
+     <p><strong>Description:</strong></p>
+     <p><strong>time:</strong></p>
+
 
      {/* add description preview */}
-   <Link to={`/event/${id}`} className='details-button'>View Details</Link>
+   <Link to={`/events/${event._id}`} className='details-button'>View Details</Link>
    <button onClick={() => onRsvp(id)}>RSVP</button>
    <button onClick={() => onDelete(event.id)}>Delete</button>
       </div>
