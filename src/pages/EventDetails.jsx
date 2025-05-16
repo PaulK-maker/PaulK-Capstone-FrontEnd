@@ -3,17 +3,19 @@
 import React, { useState, useEffect } from 'react';
 
 //import useParams hook for URL parameters
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 //import service function to fetch event data
 import { getEventById } from '../services/eventService';
 
 import EventCard from '../components/EventCard';
+import { deleteEvent } from "../services/eventService";
 
 function EventDetails() {
 
     //get id parameter from the url
     const { id } = useParams();
+    const navigate = useNavigate();
     //use state to store event data
     const [event, setEvent] = useState(null);
     const [error, setError] = useState(null);
@@ -43,6 +45,18 @@ function EventDetails() {
         }
     }, [id]); // dependancy arry to run effect when the state changes 
 
+    const handleDelete = async () => {
+      if (window.confirm("Are you sure you want to delete this event?"))
+        {
+            try{
+                await deleteEvent(id);
+                alert("event deleted!")
+                navigate("/events");
+            }catch (err){
+                alert("Failed to delete the event.")
+            }
+        }
+    };
     if (error) return <div>{error}</div>;
     if (!event) return <div>Loading event...</div>;
 // generate Date; and convert date string to obj

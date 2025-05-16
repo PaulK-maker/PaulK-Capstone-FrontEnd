@@ -10,18 +10,20 @@ const useQuery =()=> {
 };
 const SearchEvents = () => {
     const [events, setEvents] = useState([]);
-    const queryParam = useQuery().get('query');
+    // const queryParam = useQuery().get('query');
 
 useEffect(()=>{
-    if (!queryParam) return;
+  const query = new URLSearchParams(location.search).get('query');
+  if (!query) return;
+
         axios
         .get(`/api/events/search?query=${queryParam}`)
         .then((res) =>setEvents(res.data))
         .catch((err) =>console.error('Error fetching events:',err ));
     
-
-},[queryParam]);
-
+// search events by location
+},[location.search]);
+const queryParam = new URLSearchParams(location.search).get('query');
 return (
 
     <div>

@@ -1,14 +1,14 @@
 
 import {getEvents, updateEvent} from '../services/eventService';
 import { Link } from 'react-router-dom';
-
+import { deleteEvent } from '../services/eventService';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const HomePage = () => {
-  const [events, setEvents] = useState([]);
-  const [editingId,setEditingId] =useState(null);
-  const [form,setForm] =useState({title: '', date: ''});
+const HomePage = () => { // component to list and edit events
+  const [events, setEvents] = useState([]); // state to store list of events from the backend
+  const [editingId,setEditingId] =useState(null); // state to track which event is being edited 
+  const [form,setForm] =useState({title: '', date: ''}); // state to hold the form data when editing event
   console.log(events)
 
   // useEffect(() => {
@@ -20,9 +20,12 @@ const HomePage = () => {
   //   setEvents([]);
 
   // }, []);
+
+  // fetch events from back end when the component mounts
   useEffect(() => {
     axios.get('http://localhost:3001/api/events')
       .then(response => {
+        // store events in state; handle both array or wrapped in event key
         setEvents(Array.isArray(response.data) ? response.data : response.data.events || []);
       })
       .catch(error => {
@@ -35,10 +38,11 @@ const startEdit =(event) =>{
   setEditingId(event._id);
   setForm({ title:event.title,date:event.date.split('T')[0]});
 };
+// update form state as user types
 const handleEditChange = (e) => {
   setForm({ ...form, [e.target.name]: e.target.value });
 };
-
+// submit edited event to the back end
 const submitEdit = async (e)=>{
   e.preventDefault();
 
@@ -47,7 +51,7 @@ const submitEdit = async (e)=>{
   await updateEvent(editingId, form);
   // .then(() => {
     setEditingId(null);
-
+//refresh event list after succesful update
     const response = await axios.get('http://localhost:3001/api/events');
     // return getEvents();
 
@@ -55,13 +59,31 @@ const submitEdit = async (e)=>{
   setEvents(response.data);
   }catch(error) {
     console.error('Error updating event:', error);
+    if (error.response) {
+      console.error('Server response:', error.response.data);
+    }
     alert('Failed to update event.');
   }
 };
-  
+//handler to delete event by ID
+  const handleDelete = async (id) =>{
 
+    //Confirm with the user before delete
+    if (window.confirm("Are you sure you want to delete?")){
+      try {
+    // call dservice to delete event
+    await deleteEvent(id);
+    //deleted event removed from state
+    setEvents(events.filter(event=>event._id !==id));
+      }catch(error){
+        console.error('error deleting event:', error)
+        alert('Delete failed')
 
+      }
+    }
 
+  };
+//render UI
   return (
     <div className="event-list-container">
       <h2>Welcome to View the Events!</h2>
@@ -100,6 +122,18 @@ const submitEdit = async (e)=>{
                 <Link to={`/events/${event._id}`}>View Details</Link>
                 
                 <button onClick={() => startEdit(event)}>Edit</button>
+                <button
+                onClick={()=> handleDelete(event._id)}
+                style={{
+                  background: "#7a2817",
+                  color: "white",
+                  padding: "0.3rem 0.7rem",
+                  marginLeft: "0.5rem",
+                  cursor: "pointer"
+                }}>
+                  Delete
+
+                </button>
               </li>
             )
           )}
